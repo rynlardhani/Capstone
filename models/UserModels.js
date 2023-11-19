@@ -22,6 +22,9 @@ const Users = db.define('users', {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
     },
+    profilePic: {
+        type: DataTypes.TEXT,
+    },
     refreshToken: {
         type: DataTypes.TEXT,
     },

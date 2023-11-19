@@ -47,21 +47,16 @@ Content-Type: application/json
 }
 
 ### Meals!
-POST http://localhost:5000/meals
-Content-Type: application/json
-
-{
-    "userId": "1"
-}
+GET http://localhost:5000/meals/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJKb2huIFNpbnMiLCJlbWFpbCI6ImpvaG5zaW5zQGdtYWlsLmNvbSIsImlhdCI6MTcwMDQxMDEyOCwiZXhwIjoxNzAwNDEwMTU4fQ.R2IW-5zQgePbOwhx61aRxq_niIdZ-jtBXljbRIkl_T8
 
 ###
-POST http://localhost:5000/addmeal
+POST http://localhost:5000/addmeal/1
 Content-Type: application/json
 
 {
-    "meals_name" : "Gado - Gado",
-    "userId": 1,
-    "calories": "200"
+    "meals_name" : "Nasi goreng",
+    "calories": "213"
 }
 
 ### Random Facts!
