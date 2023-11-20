@@ -1,7 +1,7 @@
 import express from "express";
 import { getUserById, getUsers, Login, Logout, Register } from "../controllers/Users.js";
 import { getNutrisions, addNutrisions } from "../controllers/Nutrisions.js";
-import { getMealsById, addMeal } from "../controllers/Meals.js";
+import { getMealsById, addMeal, deleteMealsById } from "../controllers/Meals.js";
 import { getRandomFact, addFactHealths } from "../controllers/FactHealths.js";
 import { verifyToken } from "../middleware/VerifyToken.js";
 import { refreshToken } from "../controllers/RefreshToken.js";
@@ -23,7 +23,7 @@ router.delete('/logout', Logout);
 
 //upload image
 //bug image that has been uploaded not deleted after new update
-router.post('/upload/:id', multerImage.single('file'), uploadImage);
+router.post('/upload/:id', verifyToken, multerImage.single('file'), uploadImage);
 
 // Nutriosions
 router.get('/nutrisions', getNutrisions);
@@ -31,8 +31,9 @@ router.post('/nutrisions', addNutrisions);
 
 
 //meals
-router.get('/meals/:id', verifyToken, getMealsById);
-router.post('/addmeal/:id', verifyToken, addMeal);
+router.get('/meals/:id', getMealsById);
+router.post('/addmeal/:id', addMeal);
+router.post('/deletemeal/:id', deleteMealsById);
 
 //fact healths
 router.get('/facthealths', getRandomFact);

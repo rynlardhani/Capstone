@@ -16,7 +16,7 @@ export const getMealsById = async (req, res) => {
             where: {
                 userId: userId,
             },
-            attributes: ['meals_name', 'calories'],
+            attributes: ['mealId', 'meals_name', 'calories'],
         });
 
         return res.json({
@@ -44,10 +44,51 @@ export const addMeal = async (req, res) => {
             calories: calories,
         });
         res.json({
-            msg: 'Meal added successfully',
+            msg: 'Meal added successfully by' + userId,
             data: dataMealsCreate,
         });
     } catch (error) {
         console.error(error);
+    }
+};
+
+
+export const deleteMealsById = async (req, res) => {
+    const { id: userId } = req.params;
+    const { mealId } = req.body;
+
+    try {
+        const mealToDelete = await Meals.findOne({
+            where: {
+                userId: userId,
+                mealId: mealId,
+            },
+            attributes: ['mealId', 'meals_name', 'calories'],
+        });
+
+        if (!mealToDelete) {
+            return res.status(404).json({
+                error: 'Meal not found',
+            });
+        }
+
+        const dataMealsDelete = await Meals.destroy({
+            where: {
+                userId: userId,
+                mealId: mealId,
+            },
+        });
+
+        res.json({
+            msg: 'Meal deleted successfully',
+            data: {
+                meal: mealToDelete,
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            error: 'Internal Server Error',
+        });
     }
 };
